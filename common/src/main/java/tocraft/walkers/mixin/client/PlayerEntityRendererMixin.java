@@ -22,6 +22,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Tuple;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.*;
+import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.world.entity.monster.Phantom;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
@@ -215,6 +216,9 @@ public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<Abs
     private void onRenderArm(PoseStack matrices, MultiBufferSource vertexConsumers, int light, ResourceLocation resourceLocation, ModelPart arm, boolean bl, CallbackInfo ci) {
         if (Minecraft.getInstance().cameraEntity instanceof Player player) {
             LivingEntity shape = PlayerShape.getCurrentShape(player);
+
+            HumanoidModel.ArmPose rightArm = getArmPose(player, Hand.MAIN_HAND);
+            HumanoidModel.ArmPose leftArm = getArmPose(player, Hand.OFF_HAND);
 
             // sync player data to shape
             if (shape != null) {
